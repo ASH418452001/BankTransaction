@@ -1,0 +1,9 @@
+﻿namespace BankTransaction.DTO.UserDTO
+{
+    public class UPDATEUserDTO
+    {
+        public int ID { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+    }
+}

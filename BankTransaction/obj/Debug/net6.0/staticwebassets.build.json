@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "W7/SDEE5ICdibD6xcmhPmNIrUtVs9yqK0/Cwd9dElmI=",
+  "Source": "BankTransaction",
+  "BasePath": "_content/BankTransaction",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
