@@ -54,6 +54,46 @@ namespace BankTransaction.Controllers
             
         }
 
+        [HttpGet("transactionfromEuroTO$/{id}")]
+        public async Task<ActionResult<object>> GetTransactiontoEuro(int id)
+        {
+            // Fetch the transaction from the database or any other data source
+            var transaction =  _context.bankTransaction.FirstOrDefault(t => t.ID == id);
+
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+
+            // Divide the amount in dollars by the daily price to convert to euros
+            transaction.AmountInDollar = transaction.AmountInEuro / transaction.DailyPrice;
+
+            return Ok(transaction.AmountInDollar);
+        }
+
+
+
+
+        [HttpGet("transactionfrom$TOEuro/{id}")]
+        public async Task<ActionResult<object>> GetTransactionToDollar(int id)
+        {
+            // Fetch the transaction from the database or any other data source
+            var transaction = _context.bankTransaction.FirstOrDefault(t => t.ID == id);
+
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+
+            // Divide the amount in dollars by the daily price to convert to euros
+            transaction.AmountInEuro = transaction.AmountInDollar * transaction.DailyPrice;
+
+            return Ok(transaction.AmountInEuro);
+        }
+
+
+
+
         // POST api/<BankTransactionController>
         [HttpPost]
         public async Task<ActionResult<CreatebankTransactionDTO>> Post([FromBody] CreatebankTransactionDTO dto)
