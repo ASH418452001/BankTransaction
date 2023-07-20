@@ -24,9 +24,10 @@ namespace BankTransaction.Controllers
         }
         // GET: api/<BankTransactionController>
         [HttpGet]
-        public async Task<IEnumerable<GETbankTransaction>> Get(bankTransactionFilter filter)
+        public async Task<ActionResult<GETbankTransaction>> Get([FromQuery] bankTransactionFilter filter)
         {
-            var BT = await _context.bankTransaction.Where(a => string.IsNullOrEmpty(filter.NameOfSender) || a.NameOfSender.Contains(filter.NameOfSender))
+            var BT = await _context.bankTransaction
+                .Where(a => string.IsNullOrEmpty(filter.NameOfSender) || a.NameOfSender.Contains(filter.NameOfSender))
                 .Where(a => string.IsNullOrEmpty(filter.NameOfReciever) || a.NameOfReciever.Contains(filter.NameOfReciever))
                 .Where(a => string.IsNullOrEmpty(filter.governorate) || a.governorate.Contains(filter.governorate))
                 .Where(a => filter.fromAmountdolar == null || a.AmountInDollar >= filter.fromAmountdolar)
@@ -35,12 +36,14 @@ namespace BankTransaction.Controllers
                  .Where(a => filter.toAmountEuro == null || a.AmountInEuro <= filter.toAmountEuro)
                  .Where(a => filter.fromdailyprice == null || a.DailyPrice >= filter.fromdailyprice)
                  .Where(a => filter.todailyprice == null || a.DailyPrice <= filter.todailyprice)
-                 //.Where(a => filter.fromdateOfTransaction == null || a.DateOfTransaction >= filter.fromdateOfTransaction)
-                 //.Where(a => filter.todate == null || a.DateOfTransaction <= filter.todate)
+                 
 
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize).ToListAsync();
-                  return _mapper.Map<IEnumerable<GETbankTransaction>>(BT);
+
+                  var data= _mapper.Map<IEnumerable<GETbankTransaction>>(BT);
+
+            return Ok(data);
         }
 
         // GET api/<BankTransactionController>/5

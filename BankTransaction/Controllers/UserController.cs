@@ -28,7 +28,7 @@ namespace BankTransaction.Controllers
             _mapper = mapper;
         }
         // GET: api/<UsersController>
-        [HttpGet]
+        [HttpGet("GETALL")]
         public async Task<ActionResult<List<GETUserDTO>>> Get(string SAS)
         {
             var entity = await _context.User.Where(x => !x.IsDeleted).ToListAsync();

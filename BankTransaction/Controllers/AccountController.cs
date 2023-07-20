@@ -24,6 +24,17 @@ namespace BankTransaction.Controllers
             _context = context;
             _mapper = mapper;
         }
+        [HttpGet]
+        [Route("Get")]
+        
+        public async Task<object> Get()
+        {
+            var entity = await _context.User.FirstOrDefaultAsync() ;
+            
+            return entity;
+        }
+
+       
         [Route("Login")]
         [HttpPost]
         public async Task<IActionResult> Login(Login dto)
