@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BankTransaction.DTO;
 using BankTransaction.DTO.bankTranactionDTO;
 using BankTransaction.Filter;
 using BankTransaction.Model;
@@ -23,6 +24,7 @@ namespace BankTransaction.Controllers
             _mapper = mapper;
         }
         // GET: api/<BankTransactionController>
+      
         [HttpGet]
         public async Task<ActionResult<GETbankTransaction>> Get([FromQuery] bankTransactionFilter filter)
         {
@@ -40,7 +42,6 @@ namespace BankTransaction.Controllers
 
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize).ToListAsync();
-
                   var data= _mapper.Map<IEnumerable<GETbankTransaction>>(BT);
 
             return Ok(data);
