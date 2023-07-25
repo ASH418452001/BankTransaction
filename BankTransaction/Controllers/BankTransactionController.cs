@@ -119,24 +119,17 @@ namespace BankTransaction.Controllers
 
         // PUT api/<BankTransactionController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<UPDATEbankTransactionDTO>> Put([FromBody] UPDATEbankTransactionDTO dto)
+        public async Task<ActionResult<UPDATEbankTransactionDTO>> Put(int id, [FromBody] UPDATEbankTransactionDTO dto)
         {
             try
             {
-                var entity = _mapper.Map<bankTransaction>(dto);
-                var myEntity = await _context.bankTransaction.FindAsync(dto.ID);
+                var myEntity = await _context.bankTransaction.FindAsync(id);
                 if (myEntity == null)
                     return NotFound();
-                myEntity.NameOfSender = entity.NameOfReciever;
-                myEntity.NameOfReciever = entity.NameOfReciever;
-                myEntity.PhoneNumber = entity.PhoneNumber;
-                myEntity.governorate = entity.governorate;
-                myEntity.AmountInDollar = entity.AmountInDollar;
-                myEntity.AmountInEuro = entity.AmountInEuro;
-                myEntity.DailyPrice = entity.DailyPrice;
-                myEntity.DateOfReciever = entity.DateOfReciever;
-                myEntity.DateOfTransaction = entity.DateOfTransaction;
-                myEntity.Notes = entity.Notes;
+                var entity = _mapper.Map<bankTransaction>(dto);
+               
+                
+               
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -148,7 +141,7 @@ namespace BankTransaction.Controllers
 
         // DELETE api/<BankTransactionController>/5
         [HttpDelete("{id}")]
-        public async Task<object> Delete(int id)
+        public async Task<ActionResult<GETbankTransaction>> Delete(int id)
         {
             try
             {

@@ -2,7 +2,7 @@
 {
     public class UPDATEbankTransactionDTO
     {
-        public int ID { get; set; }
+       
         public string NameOfSender { get; set; }
         public string NameOfReciever { get; set; }
         public string PhoneNumber { get; set; }
